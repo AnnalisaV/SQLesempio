@@ -1,16 +1,39 @@
 package it.polito.tdp.esempioSQL.model;
 
+import java.util.List;
+
+import it.polito.tdp.esempioSQL.db.BabsDAO;
+
+/*
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+*/ // non deve conoscere nulla di jdbc
 
 public class LeggiBabs {
 	
 	public void run() {
 		
+		// mi serve un accesso al Database
+		BabsDAO dao= new BabsDAO(); 
+		
+		List<Station> tutteStazioni= dao.listaStation(); 
+		
+		//le visualizzo
+		for (Station s : tutteStazioni) {
+			System.out.println(s.getName()); 
+		}
+		
+		System.out.println("\n -----"); 
+		List<Station> paloAlto= dao.listaStationByLandmark("Palo Alto"); 
+		for (Station s : paloAlto) {
+			System.out.println(s.getName()); 
+		}
+		
+		/* 
 		//DEFINIZIONE URL DI CONNESSIONE
 		String jdbcURL= "jdbc:mysql://localhost/babs?user=root&password=root"; 
 		
@@ -45,7 +68,7 @@ public class LeggiBabs {
 			
 			ResultSet res= st.executeQuery(); // non passo alcun parametro
 			
-			while(res.next() /*== true*/) {
+			while(res.next() ) {//== true)  {
 				// vi e' la riga 
 				String nomeStazione= res.getString("name"); 
 				
@@ -66,8 +89,7 @@ public class LeggiBabs {
 			e.printStackTrace();
 		} 
 		
-		
-		
+		*/  // TRASFERITO TUTTO NEL DAO -> DOVE DEVE STARE!!!
 		
 		
 	}
